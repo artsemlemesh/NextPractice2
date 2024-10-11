@@ -1,0 +1,8 @@
+20241010	11:25:12	610e1f1a-7398-4ddd-b1da-731980e2a1bb	Error: not allowed by CORSS
+20241010	11:39:48	573104b5-6b47-40bc-a5bf-b08b919f67ac	Error: ENOENT: no such file or directory, stat '/Users/mac/Documents/NextPractice2/NodeNext/practice/views/subdir/test.html'
+20241010	11:39:57	63c20e9b-eb3a-4bca-94e7-6e587f673731	Error: ENOENT: no such file or directory, stat '/Users/mac/Documents/NextPractice2/NodeNext/practice/views/subdir/test.html'
+20241010	11:41:05	9d9dd45f-1073-40c5-b186-218621a3c869	Error: ENOENT: no such file or directory, stat '/Users/mac/Documents/NextPractice2/NodeNext/practice/views/subdir/test.html'
+20241010	11:41:06	43da652c-7288-49df-82fc-7345e6962e3d	Error: ENOENT: no such file or directory, stat '/Users/mac/Documents/NextPractice2/NodeNext/practice/views/subdir/test.html'
+20241011	08:19:28	6e07c6f2-d7b1-416d-9f89-7f9797431916	SyntaxError: Unexpected non-whitespace character after JSON at position 62 (line 5 column 4)
+20241011	08:20:48	d2c1ac3d-2a74-44b1-a2b0-51c63357bf50	SyntaxError: Expected ',' or '}' after property value in JSON at position 17 (line 3 column 5)
+20241011	10:20:33	25886d69-e2ab-4b8a-ba67-0b3874f844dc	SyntaxError: Unexpected token 'e', "eyJhbGciOi"... is not valid JSON
