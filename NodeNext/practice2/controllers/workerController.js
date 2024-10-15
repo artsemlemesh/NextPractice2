@@ -1,12 +1,13 @@
 const Worker = require('../models/Worker');
 
-const getAllWrokers = async (req, res) => {
+const getAllWorkers = async (req, res) => {
+  console.log('getAllWorkers');
   const workers = await Worker.find();
   if (!workers) return res.status(204).json({ message: 'No workers found' });
   res.json(workers);
 };
 
-const createNewWroker = async (req, res) => {
+const createNewWorker = async (req, res) => {
   if (
     !req?.body?.name ||
     !req?.body?.age ||
@@ -48,28 +49,57 @@ const updateWorker = async (req, res) => {
 };
 
 const deleteWorker = async (req, res) => {
-    if (!req?.body?.id) return res.status(400).json({ message: 'Worker ID required' });
-    const worker = await Worker.findOne({ _id: req.body.id}).exec()
+  const { id } = req.params; // Extracting the ID from the URL parameters
+  console.log('deleteWorker called with idDDD:', id);
+  
+  if (!id) return res.status(400).json({ message: 'Worker ID required' }); // Check if ID is provided
+  
+  try {
+    const worker = await Worker.findOne({ _id: id }).exec(); // Find the worker by ID
     if (!worker) {
-        return res.status(204).json({ "message": `no worker matches ID ${req.body.id}` });
+      return res.status(404).json({ message: `No worker matches ID ${id}` }); // Change to 404
     }
-    const result = await worker.deleteOne({_id: req.body.id})
-    res.json(result);
-}
-
+    
+    const result = await worker.deleteOne({ _id: id }); // Delete the worker
+    res.json(result); // Return the result of the deletion
+  } catch (err) {
+    console.error(err); // Log the error
+    return res.status(500).json({ message: 'Internal Server Error' }); // Send error response
+  }
+};
 
 const getWorker = async (req, res) => {
-    if(!req?.params?.id) return res.status(400).json({ "message": 'Worker ID required' });
-    const worker = await Worker.findOne({ _id: req.params.id}).exec()
+  console.log('getWorker called with idDDD:', req.params.id);
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({ message: 'Worker ID required' });
+  }
+  try {
+    const worker = await Worker.findOne({ _id: req.params.id }).exec();
     if (!worker) {
-        return res.status(204).json({ "message": `no worker matches ID ${req.params.id}` });
+      return res
+        .status(204)
+        .json({ message: `no worker matches ID ${req.params.id}` });
     }
-}
+    res.json(worker);
+  } catch (err) {
+    console.error(err);
+  }
+
+  // if (!req?.params?.id) return res.status(400).json({ "message": 'Worker ID required' });
+
+  //   if(!req?.params?.id) return res.status(400).json({ "message": 'Worker ID required' });
+  //   const worker = await Worker.findOne({ _id: req.params.id}).exec()
+  //   if (!worker) {
+  //       return res.status(204).json({ "message": `no worker matches ID ${req.params.id}` });
+  //   }
+  //   res.json(worker);
+};
 
 module.exports = {
-  getAllWrokers,
-  createNewWroker,
+  getAllWorkers,
+  createNewWorker,
   updateWorker,
   deleteWorker,
   getWorker,
-}
+};
