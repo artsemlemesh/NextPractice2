@@ -5,8 +5,10 @@ export default function Home() {
         <div>
             <h1>Welcome to the Quotes App</h1>
             <Link href="/quotes">View Quotes</Link><br/>
-            <Link href="/workers">View Workers</Link>
-            <Link href="/users">View user</Link>
+            <Link href="/workers">View Workers</Link><br/>
+            <Link href="/users">View user</Link><br/>
+            <Link href="/auth">register/login</Link><br/>
+
         </div>
     );
 }

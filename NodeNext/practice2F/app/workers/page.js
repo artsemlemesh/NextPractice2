@@ -11,7 +11,7 @@ export default function WorkersPage() {
 
     const dispatch = useDispatch();
     const workers = useSelector((state) => state.workers.workers)
-
+  console.log('workers', workers)
     useEffect(() => {
         dispatch(fetchWorkers())
     }, [dispatch])

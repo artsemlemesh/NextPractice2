@@ -8,7 +8,8 @@ const userRoutes = require('./routes/userRoutes');
 const workerRoutes = require('./routes/workerRoutes');
 const imageUserRoutes = require('./routes/imageUserRoutes');
 const path = require('path');
-
+const cookieParser = require('cookie-parser');
+const verifyToken = require('./middleware/cookieMiddleware');
 const app = express();
 
 // built-in middleware for json 
@@ -20,7 +21,7 @@ app.use(cors({origin: 'http://localhost:3000',
     }));
 //custom middleware logger
 app.use(logger);
-
+app.use(cookieParser());//add for cookies
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
@@ -28,14 +29,14 @@ app.use('/api', imageUserRoutes)
 
 //routes
 app.use('/auth', authRoutes);
-app.use('/api', userRoutes);
-app.use('/workers', workerRoutes);
+// app.use('/api', userRoutes);
+app.use('/workers', verifyToken, workerRoutes);
 
 
 //db connection
 connectDB()
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
     console.log(`server running on port ${PORT}`)
 })
