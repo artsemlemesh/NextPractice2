@@ -25,12 +25,12 @@ app.use(cookieParser());//add for cookies
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
-app.use('/api', imageUserRoutes)
+app.use('/auth', verifyToken, imageUserRoutes)
 
 //routes
-app.use('/auth', authRoutes);
+// app.use('/auth', authRoutes);
 // app.use('/api', userRoutes);
-app.use('/workers', verifyToken, workerRoutes);
+app.use('/workers', workerRoutes);
 
 
 //db connection

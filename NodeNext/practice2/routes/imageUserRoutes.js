@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.get('/users',verifyToken, imageUserController.getAllUsers);
+router.get('/users', imageUserController.getAllUsers);
 
 router.post(
   '/upload',

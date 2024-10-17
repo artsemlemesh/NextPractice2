@@ -3,7 +3,8 @@ const jwt = require('jsonwebtoken');
 const verifyToken = (req, res, next) => {
   const token = req.cookies.token;  // Get the token from the cookies
   if (!token) {
-    return res.status(401).json({ message: 'Access denied, token missing' });
+    return res.redirect('http://localhost:3001/auth')
+    // return res.status(401).json({ message: 'Access denied, token missing' });
   }
 
   try {
