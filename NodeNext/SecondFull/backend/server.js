@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: true,
+    origin: 'http://localhost:3000',
     credentials: true, //optional, if im using cookies/auth tokens
   })
 );
@@ -29,8 +29,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 //routes
 app.use('/', userRoutes);
-app.use('/worker', verifyToken, workerRoutes); //can apply verifyToken middleware here
-
+app.use('/workers', verifyToken, workerRoutes); //can apply verifyToken middleware here
+//temporary removed verifyToken middleware from workers
 connectDB();
 
 const PORT = process.env.PORT;

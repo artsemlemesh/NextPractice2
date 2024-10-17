@@ -24,7 +24,5 @@ router.post('/upload', upload.single('profileImage'), userController.uploadProfi
 router.post('/register', userController.registerUser);
 router.post('/login', userController.loginUser);
 router.post('/logout', userController.logoutUser);
-//implement check auth or refresh token later
-
 
 module.exports = router;
