@@ -7,6 +7,7 @@ const path = require('path');
 const app = express();
 const userRoutes = require('./routes/userRoutes');
 const workerRoutes = require('./routes/workerRoutes');
+const peopleRoutes = require('./routes/peopleRoutes');
 const verifyToken = require('./middleware/cookieMiddleware');
 const { checkRole } = require('./middleware/roleMiddleware');
 
@@ -31,8 +32,10 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 //routes
 
 app.use('/', userRoutes);
-app.use('/workers',verifyToken ,checkRole('user') ,workerRoutes); //can apply verifyToken middleware here
+app.use('/workers', verifyToken, checkRole('user'), workerRoutes); //can apply verifyToken middleware here
 //temporary removed verifyToken middleware from workers
+
+app.use('/people', verifyToken, checkRole('user'), peopleRoutes);
 connectDB();
 
 const PORT = process.env.PORT;
