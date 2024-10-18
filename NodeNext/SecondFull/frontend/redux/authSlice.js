@@ -13,7 +13,9 @@ export const registerUser = createAsyncThunk(
         credentials: 'include', //for cookies
       });
       const data = await response.json();
+      console.log('DATARegister', data)
       return data;
+
     } catch (error) {
       console.error('Error registering user:', error);
       throw error;
@@ -34,6 +36,7 @@ export const loginUser = createAsyncThunk(
         credentials: 'include', //for cookies
       });
       const data = await response.json();
+      console.log('DATALogin', data)
       return data;
     } catch (error) {
       console.error('Error logging in:', error);
@@ -56,11 +59,11 @@ export const logoutUser = createAsyncThunk('auth/logoutUser', async () => {
   }
 });
 
-
+// ⨯ ReferenceError: localStorage is not defined is because localStorage is not available in server-side env. fix it later
 const initialState = {
-  token: null,
-  user: null,
-  isAuthenticated: false,
+  token: localStorage.getItem('token') || null, // Load token from local storage
+  user: JSON.parse(localStorage.getItem('user')) || null, // Load user from local storage
+  isAuthenticated: !!localStorage.getItem('token'), // Check if token exists
   error: null,
 };
 
@@ -74,6 +77,8 @@ const authSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isAuthenticated = true;
+        localStorage.setItem('token', action.payload.token);
+        localStorage.setItem('user', JSON.stringify(action.payload.user));
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.error = action.error.message;
@@ -82,6 +87,8 @@ const authSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isAuthenticated = true;
+        localStorage.setItem('token', action.payload.token);
+        localStorage.setItem('user', JSON.stringify(action.payload.user));
       })
 
       .addCase(loginUser.rejected, (state, action) => {
@@ -91,6 +98,8 @@ const authSlice = createSlice({
         state.token = null;
         state.user = null;
         state.isAuthenticated = false;
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
       })
       .addCase(logoutUser.rejected, (state, action) => {
         state.error = action.error.message;

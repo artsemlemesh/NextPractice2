@@ -8,6 +8,7 @@ const app = express();
 const userRoutes = require('./routes/userRoutes');
 const workerRoutes = require('./routes/workerRoutes');
 const verifyToken = require('./middleware/cookieMiddleware');
+const { checkRole } = require('./middleware/roleMiddleware');
 
 // built-in middleware for json
 app.use(express.json());
@@ -28,8 +29,9 @@ app.use(cookieParser());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 //routes
+
 app.use('/', userRoutes);
-app.use('/workers', verifyToken, workerRoutes); //can apply verifyToken middleware here
+app.use('/workers',verifyToken ,checkRole('user') ,workerRoutes); //can apply verifyToken middleware here
 //temporary removed verifyToken middleware from workers
 connectDB();
 

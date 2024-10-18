@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function WorkersPage() {
   const dispatch = useDispatch();
 
-  const workers = useSelector((state) => state.workers.workers);
+  const workers = useSelector((state) => state.workers.workers || []);
 
 
 
@@ -29,12 +29,16 @@ export default function WorkersPage() {
       <h1>Workers</h1>
       <AddWorkerForm/>
       <ul>
-        {workers.map((worker) => (
-          <li key={worker._id}>
-            {worker.name} - {worker.position}
-            <button onClick={() => handleDelete(worker._id)}>Delete</button>
-          </li>
-        ))}
+      {workers.length > 0 ? (
+          workers.map((worker) => (
+            <li key={worker._id}>
+              {worker.name} - {worker.position}
+              <button onClick={() => handleDelete(worker._id)}>Delete</button>
+            </li>
+          ))
+        ) : (
+          <li>No workers available or access denied.</li> // Show a message if no workers
+        )}
       </ul>
     </div>
   );

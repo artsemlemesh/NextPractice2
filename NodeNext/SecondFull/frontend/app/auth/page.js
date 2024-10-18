@@ -7,7 +7,7 @@ import RegisterForm from '@/components/RegisterForm';
 
 export default function Page() {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
-
+    console.log('USER',user)
   return (
     <>
       <Link href="/">go back</Link>
@@ -23,7 +23,7 @@ export default function Page() {
           </>
         ) : (
           <>
-            <p>Welcome, {user?.name}!</p>
+            <p>Welcome, {user?.username}!</p>
             <LogoutButton />
             <br />
             <Link href="/">Main Page</Link>

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function LoginForm() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const { isAuthenticated, error} = useSelector((state) => state.auth);
@@ -12,10 +12,10 @@ export default function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUser({ email, password }));
+    dispatch(loginUser({ username, password }));
     // Redirect to login page or show success message
     // Reset form fields
-    setEmail('');
+    setUsername('');
     setPassword('');
   };
 
@@ -28,12 +28,12 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="email">Email:</label>
+        <label htmlFor="username">Username:</label>
         <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          id="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           required
         />
       </div>
