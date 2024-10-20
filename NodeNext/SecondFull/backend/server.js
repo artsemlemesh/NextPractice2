@@ -49,7 +49,7 @@ const io = new Server(server, {
 let users = []; // Array to track online users
 
 io.on('connection', (socket) => {
-  console.log(`USER connected: ${socket.id}`);
+  // console.log(`USER connected: ${socket.id}`);
 
   // Handle user joining
   socket.on('join', (username) => {
